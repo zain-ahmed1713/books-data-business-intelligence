@@ -14,8 +14,8 @@ df = pd.read_csv(csvPath)
 
 i = 0
 
-for bookName, publishingYear, bookLanguage, bookGenre in zip(df['Book Name'], df['Publishing Year'], df['language_code'], df['genre']):
-    conn.execute("INSERT INTO Books (book_name, publishing_year, author_id, publisher_id, book_language, book_genre) VALUES (?, ?, ?, ?, ?, ?)", bookName, publishingYear, i, i, bookLanguage, bookGenre)
+for authorRating, numberOfPeopleRated in zip(df['Author_Rating'], df['Book_ratings_count']):
+    conn.execute("INSERT INTO AuthorRatings (author_rating, number_of_ppl_rated) VALUES (?, ?)", authorRating, numberOfPeopleRated)
     i = i + 1
 
 cursor = conn.cursor()
