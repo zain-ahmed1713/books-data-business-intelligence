@@ -12,8 +12,8 @@ conn = pyodbc.connect('DRIVER=' + driver + ';SERVER=' + server + ';DATABASE=' + 
 
 df = pd.read_csv(csvPath)
 
-for authorName, authorRating in zip(df['Author'], df['Author_Rating']):
-    conn.execute("INSERT INTO Authors (author_name, author_rating) VALUES (?, ?)", authorName, authorRating)
+for authorName in zip(df['Author']):
+    conn.execute("INSERT INTO Authors (author_name) VALUES (?)", authorName)
 
 cursor = conn.cursor()
 conn.commit()
