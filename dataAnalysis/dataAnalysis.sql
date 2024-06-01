@@ -21,3 +21,55 @@ FROM Books
     ON Books.book_id = BookRatings.book_id
 GROUP BY book_genre
 ORDER BY total_rating DESC;
+
+-- Sold most copies
+SELECT TOP 10
+    Books.book_name, BookSales.number_of_books_sold
+FROM 
+    BookSales 
+JOIN 
+    Books ON BookSales.book_id = Books.book_id
+ORDER BY 
+    number_of_books_sold DESC;
+
+-- Author Highest book rating
+SELECT 
+    Authors.author_name, AVG(BookRatings.book_rating) AS avg_book_rating
+FROM 
+    Authors 
+JOIN 
+    Books ON Authors.author_id = Books.author_id
+JOIN 
+    BookRatings ON Books.book_id = BookRatings.book_id
+GROUP BY 
+    Authors.author_name
+ORDER BY 
+    avg_book_rating DESC;
+
+--Author sold most books 
+SELECT TOP 3
+    Authors.author_name, SUM(BookSales.number_of_books_sold) AS total_books_sold
+FROM 
+    Authors
+JOIN 
+    Books ON Authors.author_id = Books.author_id
+JOIN 
+    BookSales ON Books.book_id = BookSales.book_id
+GROUP BY 
+    Authors.author_name
+ORDER BY 
+    total_books_sold DESC;
+
+-- Publisher Highest Total Revenue
+SELECT TOP 2
+    Publishers.publisher_name, SUM(BookSales.gross_sales) AS total_revenue
+FROM 
+    ProjectDB2.dbo.Publishers 
+JOIN 
+    ProjectDB1.dbo.Books ON Publishers.publisher_id = Books.publisher_id
+JOIN 
+    ProjectDB1.dbo.BookSales ON Books.book_id = BookSales.book_id
+GROUP BY 
+    Publishers.publisher_name
+ORDER BY 
+    total_revenue DESC;
