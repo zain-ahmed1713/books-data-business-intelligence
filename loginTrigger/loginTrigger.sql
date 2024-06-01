@@ -1,0 +1,22 @@
+CREATE TABLE LoginLog
+(
+    LoginID INT IDENTITY(1,1) PRIMARY KEY,
+    LoginName VARCHAR(20),
+    LoginTime DATETIME DEFAULT GETDATE()
+);
+
+GO
+CREATE TRIGGER LoginTrigger
+ON ALL SERVER
+FOR LOGON
+AS
+BEGIN
+    INSERT INTO ProjectDB1.dbo.LoginLog
+        (LoginName)
+    VALUES
+        (ORIGINAL_LOGIN());
+END;
+
+SELECT *
+FROM LoginLog
+ORDER BY LoginTime DESC;
