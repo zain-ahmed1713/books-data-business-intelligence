@@ -22,7 +22,7 @@ FROM Books
 GROUP BY book_genre
 ORDER BY total_rating DESC;
 
--- Sold most copies
+-- Top 10 Books whose copies were most sold
 SELECT TOP 10
     Books.book_name, BookSales.number_of_books_sold
 FROM 
@@ -32,8 +32,8 @@ JOIN
 ORDER BY 
     number_of_books_sold DESC;
 
--- Author Highest book rating
-SELECT 
+-- Top 10 Authors with highest average book rating
+SELECT TOP 10
     Authors.author_name, AVG(BookRatings.book_rating) AS avg_book_rating
 FROM 
     Authors 
@@ -46,7 +46,7 @@ GROUP BY
 ORDER BY 
     avg_book_rating DESC;
 
---Author sold most books 
+-- Top 3 Authors who sold most books 
 SELECT TOP 3
     Authors.author_name, SUM(BookSales.number_of_books_sold) AS total_books_sold
 FROM 
@@ -60,8 +60,8 @@ GROUP BY
 ORDER BY 
     total_books_sold DESC;
 
--- Publisher Highest Total Revenue
-SELECT TOP 2
+-- Top 3 Publishers with Highest Total Revenue
+SELECT TOP 3
     Publishers.publisher_name, SUM(BookSales.gross_sales) AS total_revenue
 FROM 
     ProjectDB2.dbo.Publishers 
